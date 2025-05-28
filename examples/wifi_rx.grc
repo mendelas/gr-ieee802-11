@@ -364,9 +364,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1600, 608.0]
+    coordinate: [1608, 568.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: blocks_message_debug_0_0
   id: blocks_message_debug
   parameters:
@@ -381,7 +381,7 @@ blocks:
     bus_structure: null
     coordinate: [1592, 760.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: blocks_message_debug_0_1
   id: blocks_message_debug
   parameters:
@@ -396,7 +396,7 @@ blocks:
     bus_structure: null
     coordinate: [1600, 960.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: blocks_moving_average_xx_0
   id: blocks_moving_average_xx
   parameters:
@@ -543,6 +543,51 @@ blocks:
     coordinate: [672, 1152.0]
     rotation: 0
     state: disabled
+- name: ieee802_11_extract_csi_1
+  id: ieee802_11_extract_csi
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1888, 480.0]
+    rotation: 0
+    state: enabled
+- name: ieee802_11_extract_csi_1_0
+  id: ieee802_11_extract_csi
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1880, 576.0]
+    rotation: 0
+    state: enabled
+- name: ieee802_11_extract_csi_1_1
+  id: ieee802_11_extract_csi
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1896, 680.0]
+    rotation: 0
+    state: enabled
 - name: ieee802_11_frame_equalizer_0
   id: ieee802_11_frame_equalizer
   parameters:
@@ -1300,8 +1345,11 @@ connections:
 - [ieee802_11_frame_equalizer_0, symbols, ieee802_11_extract_csi_0, pdu in]
 - [ieee802_11_frame_equalizer_0, symbols, pdu_pdu_to_tagged_stream_0, pdus]
 - [ieee802_11_parse_mac_multiout_0, mac_1, blocks_message_debug_0, print_pdu]
+- [ieee802_11_parse_mac_multiout_0, mac_1, ieee802_11_extract_csi_1, pdu in]
 - [ieee802_11_parse_mac_multiout_0, mac_2, blocks_message_debug_0_0, print_pdu]
+- [ieee802_11_parse_mac_multiout_0, mac_2, ieee802_11_extract_csi_1_0, pdu in]
 - [ieee802_11_parse_mac_multiout_0, mac_other, blocks_message_debug_0_1, print_pdu]
+- [ieee802_11_parse_mac_multiout_0, mac_other, ieee802_11_extract_csi_1_1, pdu in]
 - [ieee802_11_sync_long_0, '0', blocks_stream_to_vector_0, '0']
 - [ieee802_11_sync_short_0, '0', blocks_delay_0, '0']
 - [ieee802_11_sync_short_0, '0', ieee802_11_sync_long_0, '0']
