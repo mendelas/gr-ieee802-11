@@ -352,6 +352,51 @@ blocks:
     coordinate: [768, 908]
     rotation: 180
     state: disabled
+- name: blocks_message_debug_0
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    en_uvec: 'True'
+    log_level: info
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1600, 608.0]
+    rotation: 0
+    state: enabled
+- name: blocks_message_debug_0_0
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    en_uvec: 'True'
+    log_level: info
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1592, 760.0]
+    rotation: 0
+    state: enabled
+- name: blocks_message_debug_0_1
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    en_uvec: 'True'
+    log_level: info
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1600, 960.0]
+    rotation: 0
+    state: enabled
 - name: blocks_moving_average_xx_0
   id: blocks_moving_average_xx
   parameters:
@@ -483,6 +528,21 @@ blocks:
     coordinate: [864, 676]
     rotation: 0
     state: enabled
+- name: ieee802_11_extract_csi_0
+  id: ieee802_11_extract_csi
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [672, 1152.0]
+    rotation: 0
+    state: disabled
 - name: ieee802_11_frame_equalizer_0
   id: ieee802_11_frame_equalizer
   parameters:
@@ -509,7 +569,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    debug: 'True'
+    debug: 'False'
     log: 'False'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -519,6 +579,23 @@ blocks:
     bus_structure: null
     coordinate: [872, 796.0]
     rotation: 180
+    state: enabled
+- name: ieee802_11_parse_mac_multiout_0
+  id: ieee802_11_parse_mac_multiout
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    debug: 'True'
+    log: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1120, 728.0]
+    rotation: 0
     state: enabled
 - name: ieee802_11_sync_long_0
   id: ieee802_11_sync_long
@@ -1218,8 +1295,13 @@ connections:
 - [foo_wireshark_connector_0, '0', blocks_file_sink_0, '0']
 - [ieee802_11_decode_mac_0, out, foo_wireshark_connector_0, in]
 - [ieee802_11_decode_mac_0, out, ieee802_11_parse_mac_0, in]
+- [ieee802_11_decode_mac_0, out, ieee802_11_parse_mac_multiout_0, in]
 - [ieee802_11_frame_equalizer_0, '0', ieee802_11_decode_mac_0, '0']
+- [ieee802_11_frame_equalizer_0, symbols, ieee802_11_extract_csi_0, pdu in]
 - [ieee802_11_frame_equalizer_0, symbols, pdu_pdu_to_tagged_stream_0, pdus]
+- [ieee802_11_parse_mac_multiout_0, mac_1, blocks_message_debug_0, print_pdu]
+- [ieee802_11_parse_mac_multiout_0, mac_2, blocks_message_debug_0_0, print_pdu]
+- [ieee802_11_parse_mac_multiout_0, mac_other, blocks_message_debug_0_1, print_pdu]
 - [ieee802_11_sync_long_0, '0', blocks_stream_to_vector_0, '0']
 - [ieee802_11_sync_short_0, '0', blocks_delay_0, '0']
 - [ieee802_11_sync_short_0, '0', ieee802_11_sync_long_0, '0']

@@ -20,6 +20,7 @@ install(FILES
     mac.h
     mapper.h
     parse_mac.h
+    parse_mac_multiout.h
     signal_field.h
     sync_long.h
     sync_short.h
