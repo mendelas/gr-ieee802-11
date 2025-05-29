@@ -23,6 +23,8 @@ void bind_parse_mac_multiout(py::module& m)
         .def(py::init(&parse_mac_multiout::make),
              py::arg("log") = false,
              py::arg("debug") = false,
+             py::arg("mac_1") = "",
+             py::arg("mac_2") = "",
              D(parse_mac_multiout, make))
 
 

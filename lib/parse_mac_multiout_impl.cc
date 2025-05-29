@@ -1,5 +1,4 @@
 #include "utils.h"
-#include <ieee802_11/parse_mac.h>
 #include <ieee802_11/parse_mac_multiout.h>
 
 #include <gnuradio/block_detail.h>
@@ -13,13 +12,18 @@ class parse_mac_multiout_impl : public parse_mac_multiout
 {
 
 public:
-    parse_mac_multiout_impl(bool log, bool debug)
+    parse_mac_multiout_impl(bool log,
+                            bool debug,
+                            const std::string& mac_1,
+                            const std::string& mac_2)
         : block("parse_mac_multiout",
                 gr::io_signature::make(0, 0, 0),
                 gr::io_signature::make(0, 0, 0)),
           d_log(log),
           d_last_seq_no(-1),
-          d_debug(debug)
+          d_debug(debug),
+          d_mac_1(mac_1),
+          d_mac_2(mac_2)
     {
         message_port_register_in(pmt::mp("in"));
         set_msg_handler(
@@ -99,9 +103,9 @@ public:
         std::string src_mac = format_mac_address(h->addr2);
         pmt::pmt_t out_pdu = pmt::cons(d_meta, d_msg);
 
-        if (src_mac == "fa:25:51:de:c1:a2") {
+        if (src_mac == d_mac_1) {
             message_port_pub(pmt::mp("mac_1"), out_pdu);
-        } else if (src_mac == "ff:ff:ff:ff:ff:ff") {
+        } else if (src_mac == d_mac_2) {
             message_port_pub(pmt::mp("mac_2"), out_pdu);
         } else {
             message_port_pub(pmt::mp("mac_other"), out_pdu);
@@ -432,6 +436,8 @@ public:
 private:
     bool d_log;
     bool d_debug;
+    std::string d_mac_1;
+    std::string d_mac_2;
     int d_last_seq_no;
     pmt::pmt_t d_meta;
     pmt::pmt_t d_msg;
@@ -442,7 +448,11 @@ private:
 //     return gnuradio::get_initial_sptr(new parse_mac_multiout_impl(log, debug));
 // }
 
-parse_mac_multiout::sptr parse_mac_multiout::make(bool log, bool debug)
+parse_mac_multiout::sptr parse_mac_multiout::make(bool log,
+                                                  bool debug,
+                                                  const std::string& mac_1,
+                                                  const std::string& mac_2)
 {
-    return gnuradio::get_initial_sptr(new parse_mac_multiout_impl(log, debug));
+    return gnuradio::get_initial_sptr(
+        new parse_mac_multiout_impl(log, debug, mac_1, mac_2));
 }

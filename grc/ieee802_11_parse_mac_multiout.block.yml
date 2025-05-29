@@ -19,6 +19,16 @@ parameters:
   options: ['True', 'False']
   option_labels: [Enable, Disable]
 
+- id: mac_1
+  label: MAC Address 1
+  dtype: string
+  default: "'fa:25:51:de:c1:a2'"
+
+- id: mac_2
+  label: MAC Address 2
+  dtype: string
+  default: "'ff:ff:ff:ff:ff:ff'"
+
 inputs:
 - domain: message
   id: in
@@ -33,6 +43,6 @@ outputs:
 
 templates:
   imports: import ieee802_11
-  make: ieee802_11.parse_mac_multiout(${log}, ${debug})
+  make: ieee802_11.parse_mac_multiout(${log}, ${debug}, "${mac_1}"", "${mac_2}"")
 
 file_format: 1
