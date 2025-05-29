@@ -91,7 +91,7 @@ public:
             break;
         }
 
-        // ペイロードのASCII表示（optional）
+        // express as ASCII payload(optional)
         char* frame = (char*)pmt::blob_data(d_msg);
         if ((((h->frame_control) >> 2) & 63) == 2) {
             print_ascii(frame + 24, frame_len - 24);
@@ -99,9 +99,28 @@ public:
             print_ascii(frame + 26, frame_len - 26);
         }
 
-        // MACアドレスごとに出力先を分岐
+        std::string key_mac;
+
+        std::string type =
+            pmt::symbol_to_string(pmt::dict_ref(d_meta, pmt::mp("type"), pmt::PMT_NIL));
+
+        if (type == "control") {
+            // ta usage
+            key_mac =
+                pmt::symbol_to_string(pmt::dict_ref(d_meta, pmt::mp("ta"), pmt::mp("")));
+        } else {
+            // addr2(transmitter) usage
+            key_mac = format_mac_address(h->addr2);
+        }
+
+        // separate via MAC address
         std::string src_mac = format_mac_address(h->addr2);
         pmt::pmt_t out_pdu = pmt::cons(d_meta, d_msg);
+
+        dout << "Comparing MACs:" << std::endl;
+        dout << "  key_mac     = [" << key_mac << "]" << std::endl;
+        dout << "  d_mac_1     = [" << d_mac_1 << "]" << std::endl;
+        dout << "  d_mac_2     = [" << d_mac_2 << "]" << std::endl;
 
         if (src_mac == d_mac_1) {
             message_port_pub(pmt::mp("mac_1"), out_pdu);
