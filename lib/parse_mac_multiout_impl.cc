@@ -99,9 +99,9 @@ public:
         std::string src_mac = format_mac_address(h->addr2);
         pmt::pmt_t out_pdu = pmt::cons(d_meta, d_msg);
 
-        if (src_mac == "aa:bb:cc:dd:ee:01") {
+        if (src_mac == "fa:25:51:de:c1:a2") {
             message_port_pub(pmt::mp("mac_1"), out_pdu);
-        } else if (src_mac == "aa:bb:cc:dd:ee:02") {
+        } else if (src_mac == "ff:ff:ff:ff:ff:ff") {
             message_port_pub(pmt::mp("mac_2"), out_pdu);
         } else {
             message_port_pub(pmt::mp("mac_other"), out_pdu);
