@@ -39,6 +39,8 @@ list(APPEND ieee802_11_python_files
     mapper_python.cc
     parse_mac_python.cc
     parse_mac_multiout_python.cc
+    extract_meta_vector_python.cc
+    frame_equalizer_tap_python.cc
     signal_field_python.cc
     sync_long_python.cc
     sync_short_python.cc
