@@ -201,7 +201,7 @@ int frame_equalizer_impl::general_work(int noutput_items,
         }
 
         //******** */ raw csi
-        std::vector<gr_complex> raw(current_symbol, current_symbol + 64);
+        // std::vector<gr_complex> raw(current_symbol, current_symbol + 64);
         // if modify to 52 rows
         std::vector<gr_complex> raw;
         for (int k = 0; k < 64; k++) {
