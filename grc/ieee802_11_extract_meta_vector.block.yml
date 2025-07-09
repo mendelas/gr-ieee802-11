@@ -4,7 +4,7 @@ category: '[IEEE802.11]'
 
 templates:
   imports: import ieee802_11
-  make: ieee802_11.extract_meta_vector()
+  make: ieee802_11.extract_meta_vector(${key})
 
 inputs:
 - label: pdu in
@@ -17,5 +17,11 @@ outputs:
   dtype: complex
   vlen: 52
   optional: false
+
+parameters:
+- id: key
+  label: Meta key
+  dtype: string
+  default: csi          # 例: csi_raw と入れれば raw が取れる
 
 file_format: 1

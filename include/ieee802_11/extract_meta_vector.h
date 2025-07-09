@@ -31,7 +31,9 @@ class IEEE802_11_API extract_meta_vector : virtual public gr::sync_block
 {
 public:
     typedef std::shared_ptr<extract_meta_vector> sptr;
-    static sptr make();
+    // static sptr make();
+    static sptr make(const std::string& key = "csi");
+    virtual void set_key(const std::string& key) = 0;
 };
 
 } // namespace ieee802_11

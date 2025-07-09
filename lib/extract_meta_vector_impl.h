@@ -31,9 +31,10 @@ class extract_meta_vector_impl : public extract_meta_vector
 private:
     pmt::pmt_t d_meta;
     std::vector<gr_complex> d_csi;
+    std::string d_key;
 
 public:
-    extract_meta_vector_impl();
+    extract_meta_vector_impl(const std::string& key = "csi");
     ~extract_meta_vector_impl();
 
     int work(int noutput_items,

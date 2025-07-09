@@ -28,16 +28,29 @@
 namespace gr {
 namespace ieee802_11 {
 
-extract_meta_vector::sptr extract_meta_vector::make()
+// extract_meta_vector::sptr extract_meta_vector::make()
+// {
+//     return gnuradio::get_initial_sptr(new extract_meta_vector_impl());
+// }
+extract_meta_vector::sptr extract_meta_vector::make(const std::string& key /* = "csi" */)
 {
-    return gnuradio::get_initial_sptr(new extract_meta_vector_impl());
+    return gnuradio::get_initial_sptr(new extract_meta_vector_impl(key));
 }
 
 
-extract_meta_vector_impl::extract_meta_vector_impl()
+// extract_meta_vector_impl::extract_meta_vector_impl(const std::string& key)
+//     : gr::sync_block("extract_meta_vector",
+//                      gr::io_signature::make(0, 0, 0),
+//                      gr::io_signature::make(1, 1, 52 * sizeof(gr_complex)))
+// {
+//     message_port_register_in(pmt::mp("pdu in"));
+// }
+
+extract_meta_vector_impl::extract_meta_vector_impl(const std::string& key)
     : gr::sync_block("extract_meta_vector",
                      gr::io_signature::make(0, 0, 0),
-                     gr::io_signature::make(1, 1, 52 * sizeof(gr_complex)))
+                     gr::io_signature::make(1, 1, 52 * sizeof(gr_complex))),
+      d_key(key) // ←★キーを保存
 {
     message_port_register_in(pmt::mp("pdu in"));
 }
@@ -58,10 +71,16 @@ int extract_meta_vector_impl::work(int noutput_items,
 
     d_meta = pmt::car(pdu);
 
-    if (!pmt::dict_has_key(d_meta, pmt::mp("csi")))
+    // if (!pmt::dict_has_key(d_meta, pmt::mp("csi")))
+    //     return 0;
+    pmt::pmt_t sym = pmt::string_to_symbol(d_key);
+
+    if (!pmt::dict_has_key(d_meta, sym))
         return 0;
 
-    d_csi = pmt::c32vector_elements(pmt::dict_ref(d_meta, pmt::mp("csi"), pmt::PMT_NIL));
+    // d_csi = pmt::c32vector_elements(pmt::dict_ref(d_meta, pmt::mp("csi"),
+    // pmt::PMT_NIL));
+    d_csi = pmt::c32vector_elements(pmt::dict_ref(d_meta, sym, pmt::PMT_NIL));
 
     gr_complex* out = (gr_complex*)output_items[0];
 

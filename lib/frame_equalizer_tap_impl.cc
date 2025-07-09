@@ -195,6 +195,14 @@ int frame_equalizer_tap_impl::general_work(int noutput_items,
             d_prev_pilots[3] = current_symbol[53] * -p;
         }
 
+        std::vector<gr_complex> raw_csi;
+        raw_csi.reserve(52);
+        for (int k = 0; k < 64; ++k) {
+            if (k == 32 || k < 6 || k > 58)
+                continue; // DC+Guard Skip
+            raw_csi.push_back(current_symbol[k]);
+        }
+
 
         // compensate residual frequency offset
         for (int i = 0; i < 64; i++) {
@@ -234,6 +242,10 @@ int frame_equalizer_tap_impl::general_work(int noutput_items,
                 std::vector<gr_complex> csi = d_equalizer->get_csi();
                 dict = pmt::dict_add(
                     dict, pmt::mp("csi"), pmt::init_c32vector(csi.size(), csi));
+
+                dict = pmt::dict_add(dict,
+                                     pmt::mp("csi_raw"),
+                                     pmt::init_c32vector(raw_csi.size(), raw_csi));
 
                 pmt::pmt_t pairs = pmt::dict_items(dict);
                 for (int i = 0; i < pmt::length(pairs); i++) {
