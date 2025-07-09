@@ -17,5 +17,7 @@ install(FILES
     ieee802_11_parse_mac.block.yml
     ieee802_11_parse_mac_multiout.block.yml
     ieee802_11_sync_long.block.yml
+    ieee802_11_frame_equalizer_tap.block.yml
+    ieee802_11_extract_meta_vector.block.yml
     ieee802_11_sync_short.block.yml DESTINATION share/gnuradio/grc/blocks
 )

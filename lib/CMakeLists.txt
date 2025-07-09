@@ -41,6 +41,8 @@ list(APPEND ieee802_11_sources
     sync_short.cc
     utils.cc
     viterbi_decoder/base.cc
+    extract_meta_vector_impl.cc
+    frame_equalizer_tap_impl.cc
 )
 
 # use SSE2 optimized viterbi implementation if SSE2 is enabled

@@ -1,0 +1,21 @@
+id: ieee802_11_extract_meta_vector
+label: WiFi Extract Meta Vector
+category: '[IEEE802.11]'
+
+templates:
+  imports: import ieee802_11
+  make: ieee802_11.extract_meta_vector()
+
+inputs:
+- label: pdu in
+  domain: message
+  optional: false
+
+outputs:
+- label: meta out
+  domain: stream
+  dtype: complex
+  vlen: 52
+  optional: false
+
+file_format: 1
