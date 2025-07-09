@@ -50,12 +50,7 @@ frame_equalizer_impl::frame_equalizer_impl(
       d_frame_symbols(0),
       d_freq_offset_from_synclong(0.0)
 {
-
     message_port_register_out(pmt::mp("symbols"));
-    //*********** */ raw csi and beta
-    message_port_register_out(pmt::mp("csi_raw"));
-    // message_port_register_out(pmt::mp("beta_raw"));
-    /************* */
 
     d_bpsk = constellation_bpsk::make();
     d_qpsk = constellation_qpsk::make();
@@ -199,18 +194,6 @@ int frame_equalizer_impl::general_work(int noutput_items,
             d_prev_pilots[2] = current_symbol[39] * p;
             d_prev_pilots[3] = current_symbol[53] * -p;
         }
-
-        //******** */ raw csi
-        // std::vector<gr_complex> raw(current_symbol, current_symbol + 64);
-        // if modify to 52 rows
-        std::vector<gr_complex> raw;
-        for (int k = 0; k < 64; k++) {
-            if (k == 32 || k < 6 || k > 58)
-                continue; // Null+Guard skip
-            raw.push_back(current_symbol[k]);
-        }
-        message_port_pub(pmt::mp("csi_raw"), pmt::init_c32vector(raw.size(), raw));
-        //************* */
 
 
         // compensate residual frequency offset

@@ -44,15 +44,6 @@ outputs:
 -   domain: message
     id: symbols
     optional: true
-# ─────────  ─────────
--   domain: message         #  raw-CSI 52/64 点
-    id: csi_raw             #   （to ZMQ PUB ）
-    optional: true
-
-# -   domain: message         # CPE 値 β 1 float /symbol
-#     id: beta_raw
-#     optional: true
-# ─────────  ─────────
 
 templates:
     imports: import ieee802_11
