@@ -18,8 +18,8 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_IEEE802_11_EXTRACT_CSI_H
-#define INCLUDED_IEEE802_11_EXTRACT_CSI_H
+#ifndef INCLUDED_IEEE802_11_EXTRACT_META_VECTOR_H
+#define INCLUDED_IEEE802_11_EXTRACT_META_VECTOR_H
 
 #include <gnuradio/sync_block.h>
 #include <ieee802_11/api.h>

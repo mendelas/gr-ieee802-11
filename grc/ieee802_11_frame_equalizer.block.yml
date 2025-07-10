@@ -7,8 +7,10 @@ category: '[IEEE802.11]'
 parameters:
 -   id: algo
     label: Algorithm
-    dtype: raw
-    default: ieee802_11.LS
+    dtype: enum
+    default: 0
+    options: [0, 1, 2, 3]
+    option_labels: [LS, LMS, COMB, STA]
 -   id: freq
     label: Frequency
     dtype: real
