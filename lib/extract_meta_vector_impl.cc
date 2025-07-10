@@ -32,7 +32,7 @@ namespace ieee802_11 {
 // {
 //     return gnuradio::get_initial_sptr(new extract_meta_vector_impl());
 // }
-extract_meta_vector::sptr extract_meta_vector::make(const std::string& key /* = "csi" */)
+extract_meta_vector::sptr extract_meta_vector::make(const std::string& key)
 {
     return gnuradio::get_initial_sptr(new extract_meta_vector_impl(key));
 }

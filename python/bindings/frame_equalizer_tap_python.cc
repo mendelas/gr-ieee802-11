@@ -66,13 +66,4 @@ void bind_frame_equalizer_tap(py::module& m)
              D(frame_equalizer_tap, set_frequency))
 
         ;
-
-    py::enum_<::gr::ieee802_11::Equalizer>(m, "Equalizer")
-        .value("LS", ::gr::ieee802_11::Equalizer::LS)     // 0
-        .value("LMS", ::gr::ieee802_11::Equalizer::LMS)   // 1
-        .value("COMB", ::gr::ieee802_11::Equalizer::COMB) // 2
-        .value("STA", ::gr::ieee802_11::Equalizer::STA)   // 3
-        .export_values();
-
-    py::implicitly_convertible<int, ::gr::ieee802_11::Equalizer>();
 }

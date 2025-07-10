@@ -24,7 +24,7 @@ install(FILES
     signal_field.h
     sync_long.h
     sync_short.h
-    frame_equalizer_tap.h
     extract_meta_vector.h
+    frame_equalizer_tap.h
     DESTINATION include/ieee802_11
 )
