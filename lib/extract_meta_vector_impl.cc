@@ -24,6 +24,9 @@
 
 #include "extract_meta_vector_impl.h"
 #include <gnuradio/io_signature.h>
+#include <pmt/pmt.h>
+#include <string>
+#include <vector>
 
 namespace gr {
 namespace ieee802_11 {
