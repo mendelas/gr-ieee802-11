@@ -57,6 +57,9 @@ private:
     int d_current_symbol;
     viterbi_decoder d_decoder;
 
+    // raw csi
+    std::vector<gr_complex> d_raw_csi;
+
     // freq offset
     double d_freq;                      // Hz
     double d_freq_offset_from_synclong; // Hz, estimation from "sync_long" block
